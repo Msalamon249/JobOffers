@@ -1,6 +1,7 @@
 package org.example.domain.loginandregister;
 
 
+import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,8 +20,9 @@ public class InMemoryLoginRepository implements LoginRepository {
     public User save(User user) {
         String id = UUID.randomUUID().toString();
         User toSave = new User(id, user.username(), user.password());
-        return map.put(toSave.username(), toSave);
-
+        map.put(toSave.username(), toSave);
+        return toSave;
     }
+
 
 }

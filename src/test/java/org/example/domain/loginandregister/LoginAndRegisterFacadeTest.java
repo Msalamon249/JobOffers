@@ -25,8 +25,8 @@ class LoginAndRegisterFacadeTest {
 
         //Then
         org.junit.jupiter.api.Assertions.assertAll(
-                ()->Assertions.assertThat(register.created()).isTrue(),
-                ()->Assertions.assertThat(register.username()).isEqualTo("Adam123")
+                () -> Assertions.assertThat(register.created()).isTrue(),
+                () -> Assertions.assertThat(register.username()).isEqualTo("Adam123")
         );
 
     }
@@ -42,9 +42,8 @@ class LoginAndRegisterFacadeTest {
         UserDto byUsername = loginFacade.findByUsername(register.username());
 
         //Then
-        Assertions.assertThat(byUsername).isEqualTo(new UserDto(register.id(), "password", "username"));
+        Assertions.assertThat(byUsername).isEqualTo(new UserDto(register.id(), "username", "password"));
     }
-
 
 
     @Test
