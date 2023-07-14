@@ -22,6 +22,7 @@ public class OfferService {
             throw new OfferSavingException(duplicateKeyException.getMessage(), jobOffers);
         }
     }
+
     private List<Offer> filterNotExistingOffers(List<Offer> jobOffers) {
         return jobOffers
                 .stream()

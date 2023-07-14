@@ -19,7 +19,7 @@ public class LoginAndRegisterFacade {
 
     public RegistrationResultDto register(RegisterUserDto registerUserDto) {
 
-      final  User user = User.builder()
+        final User user = User.builder()
                 .username(registerUserDto.username())
                 .password(registerUserDto.password())
                 .build();
