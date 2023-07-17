@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OfferService {
 
-    private final OfferFetchable offerFetchable;
+    private final OfferFetchable offerFetcher;
     private final OfferRepository offerRepository;
 
     List<Offer> fetchAllOffersAndSaveAllIfNotExists() {
@@ -23,19 +23,19 @@ public class OfferService {
         }
     }
 
-    private List<Offer> filterNotExistingOffers(List<Offer> jobOffers) {
-        return jobOffers
+    private List<Offer> fetchOffers() {
+        return offerFetcher.fetchOffers()
                 .stream()
-                .filter(offer -> !offer.offerUrl().isEmpty())
-                .filter(offer -> !offerRepository.existsByOfferUrl(offer.offerUrl()))
+                .map(OfferMapper::mapFromJobOfferResponseToOffer)
+                .toList();
+    }
+
+    private List<Offer> filterNotExistingOffers(List<Offer> jobOffers) {
+        return jobOffers.stream()
+                .filter(offerDto -> !offerDto.offerUrl().isEmpty())
+                .filter(offerDto -> !offerRepository.existsByOfferUrl(offerDto.offerUrl()))
                 .collect(Collectors.toList());
     }
 
-    private List<Offer> fetchOffers() {
-        return offerFetchable.fetchOffers()
-                .stream()
-                .map(OfferMapper::mapFromJobOffersResponseToOffer)
-                .collect(Collectors.toList());
-    }
 
 }

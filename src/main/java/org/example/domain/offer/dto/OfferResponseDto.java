@@ -10,5 +10,7 @@ public record OfferResponseDto(
         String salary,
         String offerUrl
 
+
+
 ) {
 }

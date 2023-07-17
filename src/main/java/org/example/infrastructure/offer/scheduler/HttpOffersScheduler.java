@@ -24,12 +24,12 @@ public class HttpOffersScheduler {
 
 
     @Scheduled(fixedDelayString = "${http.offers.scheduler.request.delay}")
-    public List<OfferResponseDto> fetchOffers() {
-        log.info(STARTED_OFFERS_FETCHING_MESSAGE, dateFormat.format(new Date()));
-        List<OfferResponseDto> offerResponseDtos = offerFacade.fetchAllOffersAndSaveAllIfNotExists();
-        log.info(ADDED_NEW_OFFERS_MESSAGE, offerResponseDtos.size());
+    public List<OfferResponseDto> fetchAllOffersAndSaveAllIfNotExists(){
+        log.info("Started offers fetching {}", dateFormat.format(new Date()));
+        final List<OfferResponseDto> addedOffers = offerFacade.fetchAllOffersAndSaveAllIfNotExists();
+        log.info(ADDED_NEW_OFFERS_MESSAGE, addedOffers.size());
         log.info(STOPPED_OFFERS_FETCHING_MESSAGE, dateFormat.format(new Date()));
-        return offerResponseDtos;
+        return addedOffers;
     }
 }
 

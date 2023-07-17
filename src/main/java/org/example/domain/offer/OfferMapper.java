@@ -6,32 +6,31 @@ import org.example.domain.offer.dto.OfferResponseDto;
 
 public class OfferMapper {
 
-    public static OfferResponseDto mapFromOfferToOfferResponseDto(Offer offer) {
+    public static OfferResponseDto mapFromOfferToOfferDto(Offer offer) {
         return OfferResponseDto.builder()
                 .id(offer.id())
-                .position(offer.position())
                 .companyName(offer.companyName())
+                .position(offer.position())
                 .salary(offer.salary())
                 .offerUrl(offer.offerUrl())
                 .build();
     }
 
-
-    public static Offer mapFromOfferRequestDtoToOffer(OfferRequestDto offerRequestDto) {
+    public static Offer mapFromOfferDtoToOffer(OfferRequestDto offerDto) {
         return Offer.builder()
-                .companyName(offerRequestDto.companyName())
-                .position(offerRequestDto.position())
-                .salary(offerRequestDto.salary())
-                .offerUrl(offerRequestDto.offerUrl())
+                .companyName(offerDto.companyName())
+                .position(offerDto.position())
+                .salary(offerDto.salary())
+                .offerUrl(offerDto.offerUrl())
                 .build();
     }
 
-    public static Offer mapFromJobOffersResponseToOffer(JobOffersResponse jobOffersResponse) {
+    public static Offer mapFromJobOfferResponseToOffer(JobOffersResponse jobOfferDto) {
         return Offer.builder()
-                .companyName(jobOffersResponse.company())
-                .position(jobOffersResponse.title())
-                .offerUrl(jobOffersResponse.offerUrl())
-                .salary(jobOffersResponse.salary())
+                .offerUrl(jobOfferDto.offerUrl())
+                .salary(jobOfferDto.salary())
+                .position(jobOfferDto.title())
+                .companyName(jobOfferDto.company())
                 .build();
     }
 }
