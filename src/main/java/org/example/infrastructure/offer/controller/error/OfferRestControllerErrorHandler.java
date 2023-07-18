@@ -1,6 +1,7 @@
 package org.example.infrastructure.offer.controller.error;
 
 
+import org.springframework.dao.DuplicateKeyException;
 import lombok.extern.log4j.Log4j2;
 import org.example.domain.offer.exceptions.OfferNotFoundException;
 import org.example.infrastructure.offer.controller.error.dto.OfferErrorResponse;
@@ -21,5 +22,15 @@ public class OfferRestControllerErrorHandler {
         String message = exception.getMessage();
         log.error(message);
         return new OfferErrorResponse(message, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public OfferErrorResponse duplicateKeyErrorHandler(DuplicateKeyException exception) {
+        String message = exception.getMessage();
+        log.error(message);
+        return new OfferErrorResponse(message, HttpStatus.CONFLICT);
     }
 }

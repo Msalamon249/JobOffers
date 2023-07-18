@@ -1,10 +1,17 @@
 package org.example.infrastructure.offer.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import org.example.domain.offer.OfferFacade;
+import org.example.domain.offer.dto.OfferRequestDto;
 import org.example.domain.offer.dto.OfferResponseDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 
@@ -16,15 +23,27 @@ public class OfferRestController {
     private final OfferFacade offerFacade;
 
     @GetMapping
-    public List<OfferResponseDto> getAllOffers() {
-        return offerFacade.findAllOffers();
+    public ResponseEntity<List<OfferResponseDto>> getAllOffers() {
+        List<OfferResponseDto> allOffers = offerFacade.findAllOffers();
+        return ResponseEntity.ok(allOffers);
     }
 
 
     @GetMapping("/{id}")
-    public OfferResponseDto findOfferById(@PathVariable String id) {
-        return offerFacade.findOfferById(id);
+    public ResponseEntity<OfferResponseDto> findOfferById(@PathVariable String id) {
+        OfferResponseDto offerById = offerFacade.findOfferById(id);
+        return ResponseEntity.ok(offerById);
     }
 
 
+    @PostMapping
+    public ResponseEntity<OfferResponseDto> saveOffer(@RequestBody @Valid OfferRequestDto offerRequestDto) {
+        OfferResponseDto offerResponseDto = offerFacade.saveOffer(offerRequestDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(offerResponseDto.id())
+                .toUri();
+        return ResponseEntity.created(uri).body(offerResponseDto);
+
+    }
 }
