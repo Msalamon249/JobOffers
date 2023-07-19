@@ -1,14 +1,13 @@
 package org.example.infrastructure.offer.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import org.example.domain.offer.OfferFacade;
 import org.example.domain.offer.dto.OfferRequestDto;
 import org.example.domain.offer.dto.OfferResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
+
 
 import javax.validation.Valid;
 import java.net.URI;

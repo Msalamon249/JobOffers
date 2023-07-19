@@ -25,7 +25,7 @@ public class RestTemplateResponseErrorHandler extends DefaultResponseErrorHandle
             } else if (statusCode == HttpStatus.UNAUTHORIZED) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             } else if (statusCode == HttpStatus.BAD_REQUEST) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zle wykonanie");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
         }
     }
