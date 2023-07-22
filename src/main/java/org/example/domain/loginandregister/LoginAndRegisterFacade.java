@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import org.example.domain.loginandregister.dto.RegisterUserDto;
 import org.example.domain.loginandregister.dto.RegistrationResultDto;
 import org.example.domain.loginandregister.dto.UserDto;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class LoginAndRegisterFacade {
 
@@ -14,11 +17,16 @@ public class LoginAndRegisterFacade {
     public UserDto findByUsername(String username) {
         return loginRepository.findByUsername(username)
                 .map(user -> new UserDto(user.id(), user.username(), user.password()))
-                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND));
+                .orElseThrow(() -> new BadCredentialsException(USER_NOT_FOUND));
     }
+
 
     public RegistrationResultDto register(RegisterUserDto registerUserDto) {
 
+        boolean exists = loginRepository.existsByUsername(registerUserDto.username());
+        if (exists) {
+            throw new UsernameDuplicateException(registerUserDto.username());
+        }
         final User user = User.builder()
                 .username(registerUserDto.username())
                 .password(registerUserDto.password())

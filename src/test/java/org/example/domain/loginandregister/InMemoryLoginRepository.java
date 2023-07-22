@@ -25,6 +25,11 @@ public class InMemoryLoginRepository implements LoginRepository {
     }
 
     @Override
+    public boolean existsByUsername(String username) {
+        return map.containsKey(username);
+    }
+
+    @Override
     public <S extends User> S save(S entity) {
         String id = UUID.randomUUID().toString();
         User toSave = new User(id, entity.username(), entity.password());

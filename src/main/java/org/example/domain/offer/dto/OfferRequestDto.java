@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public record OfferRequestDto(
         @NotNull(message = "{companyName.not.null}")
+
         @NotEmpty(message = "{companyName.not.empty}")
         String companyName,
         @NotNull(message = "{position.not.null}")
