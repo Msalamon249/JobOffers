@@ -7,6 +7,7 @@ import org.example.domain.offer.dto.OfferResponseDto;
 import org.example.domain.offer.exceptions.OfferDuplicateException;
 import org.example.domain.offer.exceptions.OfferNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
 
@@ -83,6 +84,7 @@ class OfferFacadeTest {
         // when
         OfferResponseDto offerById = offerFacade.findOfferById(offerResponseDto.id());
 
+
         // then
         assertThat(offerById).isEqualTo(OfferResponseDto.builder()
                 .id(offerResponseDto.id())
@@ -122,7 +124,7 @@ class OfferFacadeTest {
 
         // then
         AssertionsForClassTypes.assertThat(thrown)
-                .isInstanceOf(OfferDuplicateException.class)
+                .isInstanceOf(DuplicateKeyException.class)
                 .hasMessage("Offer with offerUrl [hello.pl] already exists");
     }
 }

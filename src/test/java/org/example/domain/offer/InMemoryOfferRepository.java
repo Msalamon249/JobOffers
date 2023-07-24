@@ -26,7 +26,7 @@ public class InMemoryOfferRepository implements OfferRepository {
         String id = UUID.randomUUID().toString();
         Offer offer1 = new Offer(id, entity.companyName(), entity.position(), entity.salary(), entity.offerUrl());
         map.put(id, offer1);
-        return entity;
+        return (S) offer1;
     }
 
     @Override
